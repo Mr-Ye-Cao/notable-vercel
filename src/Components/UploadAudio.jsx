@@ -46,38 +46,25 @@ export default function UploadAudio() {
     }
 
   return (
-    <div style = {htmlNote ? { width: "100%", height: "100%" } : {} }>
+
+    <div className='d-flex flex-column justify-content-center align-items-center'>
+        <button className='btn' onClick={(e)=>handleFileUpload(e)}>
+            <i className="bi bi-upload fs-1 dashline-btn p-3 px-4">
+            </i>
+        </button>
+        <input className="form-control" type="file" id="formFile" ref={hiddenFileInput} 
+        accept=".mp3,.wav,.m4a"
+        onChange={handleFileChange} style={{display: "none"}}/>
         {
-          htmlNote
-          ?
-            <iframe style={{ width: "100%", height: "100%" }} srcDoc={htmlNote}></iframe>
-          :
-            <>
-              <button className='btn' onClick={(e)=>handleFileUpload(e)}>
-                    <i className="bi bi-upload fs-1 dashline-btn p-3 px-4">
-                    </i>
-              </button>
-              <input className="form-control" type="file" id="formFile" ref={hiddenFileInput} 
-                      accept=".mp3,.wav,.m4a"
-                      onChange={handleFileChange} style={{display: "none"}}/>
-                      {
-                          isFilePicked ?
-                            <div>
-                                <div>
-                                  <p>Filename: {selectedFile.name}</p>
-                                  <p>Filetype: {selectedFile.type}</p>
-                                  <p>Size in bytes: {selectedFile.size}</p>
-                                  <p>
-                                    lastModifiedDate:{' '}
-                                    {selectedFile.lastModifiedDate.toLocaleDateString()}
-                                  </p>
-                                </div>
-                                <button className='btn btn-primary' onClick={handleSubmission}>SUBMIT</button>
-                            </div> 
-                          :
-                            <></>
-                      }
-            </>
+            isFilePicked ?
+            <div className='d-flex flex-column justify-content-center align-items-center mt-5'>
+                <div>
+					<p>{selectedFile.name}</p>
+				</div>
+                <button className='btn btn-primary' onClick={handleSubmission}>SUBMIT</button>
+            </div>
+            :
+            <></>
         }
     </div>
   )

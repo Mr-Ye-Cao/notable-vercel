@@ -7,7 +7,7 @@ import NoteListing from '../Components/NoteListing';
 export default function MainPage() {
   return (
     <div className='full-screen row d-block d-lg-flex m-0'>
-        <div className='col-12 col-lg-2 bg-primary text-white d-flex align-items-center p-0' style={{height: "fit-content"}}>
+        {/* <div className='col-12 col-lg-2 bg-primary text-white d-flex align-items-center p-0' style={{height: "fit-content"}}>
             <Navbar/>
             <div className='d-flex full-width justify-content-center d-lg-none'>
                 Notable
@@ -21,8 +21,10 @@ export default function MainPage() {
                 </Link>
                 
                 <Outlet/>
-                {/* <UploadAudio/> */}
             </div>
+        </div> */}
+        <div className='d-flex justify-content-center align-items-center'>
+            <UploadAudio/>
         </div>
     </div>
   )
