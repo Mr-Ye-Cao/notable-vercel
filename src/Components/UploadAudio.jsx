@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react'
-import axios from "axios"
 
 export default function UploadAudio() {
     const hiddenFileInput = useRef();
     const [selectedFile, setSelectedFile] = useState();
     const [isFilePicked, setIsFilePicked] = useState(false);
+    const [htmlNote, setHtmlNote] = useState();
 
     function handleFileUpload(e){
         e.preventDefault();
@@ -16,16 +16,37 @@ export default function UploadAudio() {
         setIsFilePicked(true);
     }
 
+    const fetchData = async (file) => {
+      const formData = new FormData();
+      formData.append("audio", file);
+    
+      try {
+        const response = await fetch("/api/processAudio", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await response.json();
+        console.log(data.message);
+        console.log(data.htmlNote);
+        
+        setHtmlNote(data.htmlNote);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
     function handleSubmission(e){
         e.preventDefault();
-        const formData = new FormData();
-		formData.append('File', selectedFile);
-        axios.post("https://run.mocky.io/v3/5b8ecbde-8890-4c1f-af42-13c043503dcb", formData).then((res)=>{
-            console.log(res);
-        })
-		
+
+        if (selectedFile) {
+            fetchData(selectedFile);
+        } else {
+            console.log("DEBUG: File is not selected");
+        }
     }
+
   return (
+
     <div className='d-flex flex-column justify-content-center align-items-center'>
         <button className='btn' onClick={(e)=>handleFileUpload(e)}>
             <i className="bi bi-upload fs-1 dashline-btn p-3 px-4">
