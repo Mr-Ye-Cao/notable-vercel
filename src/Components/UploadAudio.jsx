@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react'
-import axios from "axios"
 
 export default function UploadAudio() {
     const hiddenFileInput = useRef();
@@ -16,14 +15,43 @@ export default function UploadAudio() {
         setIsFilePicked(true);
     }
 
+    const fetchData = async (file) => {
+      const formData = new FormData();
+      formData.append("audio", file);
+    
+      try {
+        const response = await fetch("/api/processAudio", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await response.json();
+        console.log(data.message);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
     function handleSubmission(e){
         e.preventDefault();
-        const formData = new FormData();
-		formData.append('File', selectedFile);
-        axios.post("https://run.mocky.io/v3/5b8ecbde-8890-4c1f-af42-13c043503dcb", formData).then((res)=>{
-            console.log(res);
-        })
-		
+
+        if (selectedFile) {
+            fetchData(selectedFile);
+        } else {
+            console.log("DEBUG: File is not selected");
+        }
+
+        // axios.post("https://run.mocky.io/v3/5b8ecbde-8890-4c1f-af42-13c043503dcb", formData).then((res)=>{
+        //   console.log(res);
+        // })
+
+
+        // console.log("DEBUG: submitting request");
+        // const fetchData = async () => {
+        //   const response = await fetch('/api/processAudio');
+        //   const data = await response.json();
+        //   console.log(data.message);
+        // };
+        // fetchData();
     }
   return (
     <div>
