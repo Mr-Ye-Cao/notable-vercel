@@ -18,6 +18,8 @@ const axios = require('axios');
 
 const transcribeAudio = async (file) => {
   console.log("DEBUG: start processing");
+  console.log(`API KEY: ${process.env.OPENAI_API_KEY}`)
+
 
   const filePath = file.filepath;
   const fileName = file.originalFilename;
@@ -34,30 +36,17 @@ const transcribeAudio = async (file) => {
 
   console.log("DEBUG: form data created");
 
-  //console.log(`API KEY: ${process.env.OPENAI_API_KEY}`)
-
-  //const key = 
-
   const response = await axios.post('https://api.openai.com/v1/audio/transcriptions', form, {
     headers: {
       'Content-Type': `multipart/form-data; boundary=${form.getBoundary()}`,
-      'Authorization': `Bearer ${key}`,
+      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
       ...form.getHeaders(),
     },
   });
 
-  console.log(response);
+  const text= response.data.text;
 
-  // Log the raw response text
-  //const responseText = await response.text();
-  //console.log('Raw response text:', responseText);
-
-  // Then, try parsing the JSON
-  //const jsonResponse = JSON.parse(responseText);
-
-  // const result = await response.json();
-
-  // console.log(result.transcriptions);
+  console.log(`Transcript: ${text}`);
 };
 
 
