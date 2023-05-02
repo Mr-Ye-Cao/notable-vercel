@@ -26,7 +26,7 @@ export default function UploadAudio() {
 		
     }
   return (
-    <div>
+    <div className='d-flex flex-column justify-content-center align-items-center'>
         <button className='btn' onClick={(e)=>handleFileUpload(e)}>
             <i className="bi bi-upload fs-1 dashline-btn p-3 px-4">
             </i>
@@ -36,19 +36,12 @@ export default function UploadAudio() {
         onChange={handleFileChange} style={{display: "none"}}/>
         {
             isFilePicked ?
-            <div>
+            <div className='d-flex flex-column justify-content-center align-items-center mt-5'>
                 <div>
-					<p>Filename: {selectedFile.name}</p>
-					<p>Filetype: {selectedFile.type}</p>
-					<p>Size in bytes: {selectedFile.size}</p>
-					<p>
-						lastModifiedDate:{' '}
-						{selectedFile.lastModifiedDate.toLocaleDateString()}
-					</p>
+					<p>{selectedFile.name}</p>
 				</div>
                 <button className='btn btn-primary' onClick={handleSubmission}>SUBMIT</button>
             </div>
-                
             :
             <></>
         }
