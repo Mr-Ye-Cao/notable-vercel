@@ -103,7 +103,7 @@ const processAudio = async (req, res) => {
             
             console.log(`rawHTMLNote obtained: ${rawHTMLNote}`);
 
-            res.status(200).json({ message: 'Audio file processed successfully.' });
+            res.status(200).json({ message: 'Audio file processed successfully.' , htmlNote: rawHTMLNote});
         });
     } catch (error) {
         console.error(error);
