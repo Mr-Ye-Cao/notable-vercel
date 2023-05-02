@@ -21,7 +21,7 @@ export default function UploadAudio() {
         formData.append("audio", file);
       
         try {
-          const response = await fetch("/api/processAudio", {
+          const response = await fetch("https://notable-vercel.vercel.app/api/processAudio", {
             method: "POST",
             body: formData,
           });
